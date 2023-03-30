@@ -8,17 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		C03E500729D5D7B600B1FD15 /* FarmilleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E500629D5D7B600B1FD15 /* FarmilleApp.swift */; };
-		C03E500929D5D7B600B1FD15 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E500829D5D7B600B1FD15 /* ContentView.swift */; };
 		C03E500B29D5D7B700B1FD15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03E500A29D5D7B700B1FD15 /* Assets.xcassets */; };
 		C03E500E29D5D7B700B1FD15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03E500D29D5D7B700B1FD15 /* Preview Assets.xcassets */; };
+		C03E501529D5DC4400B1FD15 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E501429D5DC4400B1FD15 /* LoginView.swift */; };
+		C03E501729D5DD5C00B1FD15 /* CreateProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E501629D5DD5C00B1FD15 /* CreateProject.swift */; };
+		C03E501929D5DDE500B1FD15 /* CreateTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E501829D5DDE500B1FD15 /* CreateTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C03E500329D5D7B600B1FD15 /* Farmille.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Farmille.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03E500629D5D7B600B1FD15 /* FarmilleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmilleApp.swift; sourceTree = "<group>"; };
-		C03E500829D5D7B600B1FD15 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C03E500A29D5D7B700B1FD15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C03E500D29D5D7B700B1FD15 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C03E501429D5DC4400B1FD15 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C03E501629D5DD5C00B1FD15 /* CreateProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProject.swift; sourceTree = "<group>"; };
+		C03E501829D5DDE500B1FD15 /* CreateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +56,9 @@
 			isa = PBXGroup;
 			children = (
 				C03E500629D5D7B600B1FD15 /* FarmilleApp.swift */,
-				C03E500829D5D7B600B1FD15 /* ContentView.swift */,
+				C03E501629D5DD5C00B1FD15 /* CreateProject.swift */,
+				C03E501829D5DDE500B1FD15 /* CreateTask.swift */,
+				C03E501429D5DC4400B1FD15 /* LoginView.swift */,
 				C03E500A29D5D7B700B1FD15 /* Assets.xcassets */,
 				C03E500C29D5D7B700B1FD15 /* Preview Content */,
 			);
@@ -137,7 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C03E500929D5D7B600B1FD15 /* ContentView.swift in Sources */,
+				C03E501529D5DC4400B1FD15 /* LoginView.swift in Sources */,
+				C03E501729D5DD5C00B1FD15 /* CreateProject.swift in Sources */,
+				C03E501929D5DDE500B1FD15 /* CreateTask.swift in Sources */,
 				C03E500729D5D7B600B1FD15 /* FarmilleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
