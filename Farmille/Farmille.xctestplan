@@ -1,0 +1,23 @@
+{
+  "configurations" : [
+    {
+      "id" : "83706FE6-131F-42AD-912D-4D17F4C6C721",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Farmille.xcodeproj",
+      "identifier" : "C03E500229D5D7B600B1FD15",
+      "name" : "Farmille"
+    }
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}
