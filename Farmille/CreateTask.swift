@@ -177,11 +177,11 @@ struct CreateTask: View {
 
             .padding(.trailing)
 
-            Button("Create project", action: createProject)
+            Button("Criar tarefa", action: createProject)
 
                 .buttonStyle(.borderedProminent)
 
-            Button("Not now", action: back)
+            Button("Agora não", action: back)
 
         }
 
