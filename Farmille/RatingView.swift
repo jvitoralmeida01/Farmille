@@ -1,5 +1,8 @@
 //
 //  RatingView.swift
+//
+//  Skillmapping
+//
 //  View que mostra a avaliação de estrelas para o skillmapping
 //
 //  Created by Rodrigo Barbosa de Oliveira on 04/04/23.
