@@ -8,14 +8,6 @@
 import SwiftUI
 
 struct SkillMappingView: View {
-    @Binding var rating: Int
-    var label = ""
-    var maximumRating = 5
-    var starOn = Image(systemName: "star.fill")
-    var starOff = Image(systemName: "star")
-    var colorOff = Color.gray
-    var colorOn = Color.yellow
-    
     var body: some View {
         
         VStack {
@@ -57,61 +49,28 @@ struct SkillMappingView: View {
                 
                     .font(.system(size: 16))
                 
-                HStack{
-                    if label.isEmpty == false{
-                        Text(label)
-                    }
-                    ForEach(1..<maximumRating+1, id: \.self){ number in
-                        image(for: number)
-                            .foregroundColor(number > rating ? colorOff : colorOn)
-                            .onTapGesture {
-                                rating = number
-                            }
-                        
-                    }
-                }
+                RatingView()
+                    .padding()
                 
                 Text("Design:")
                 
                     .font(.system(size: 16))
                 
-                HStack{
-                    if label.isEmpty == false{
-                        Text(label)
-                    }
-                    ForEach(1..<maximumRating+1, id: \.self){ number in
-                        image(for: number)
-                            .foregroundColor(number > rating ? colorOff : colorOn)
-                            .onTapGesture {
-                                rating = number
-                            }
-                        
-                    }
-                }
+                RatingView()
+                    .padding()
                 
                 Text("Inovação:")
                 
                     .font(.system(size: 16))
                 
-                HStack{
-                    if label.isEmpty == false{
-                        Text(label)
-                    }
-                    ForEach(1..<maximumRating+1, id: \.self){ number in
-                        image(for: number)
-                            .foregroundColor(number > rating ? colorOff : colorOn)
-                            .onTapGesture {
-                                rating = number
-                            }
-                        
-                    }
-                }
+                RatingView()
+                    .padding()
                 
             }
             
             .padding(.leading)
             
-            .padding(.bottom, 250)
+            .padding(.bottom, 150)
             
             
             Button("Concluir cadastro", action: createProject)
@@ -123,20 +82,13 @@ struct SkillMappingView: View {
         }
         
     }
-    
-    func image (for number: Int) -> Image{
-        if number > rating{
-            return starOff
-        } else {
-            return starOn
-        }
-    }
 
 }
 
 
 struct SkillMappingView_Previews: PreviewProvider {
     static var previews: some View {
-        SkillMappingView(rating: .constant(4))
+        SkillMappingView()
     }
 }
+
