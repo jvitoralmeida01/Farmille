@@ -24,7 +24,7 @@ struct CreateProject: View {
                 .padding()
 
                 .font(.system(size: 30))
-
+            
             Image("Island")
 
                 .resizable()

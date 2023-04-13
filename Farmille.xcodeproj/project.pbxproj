@@ -13,6 +13,8 @@
 		C03E501529D5DC4400B1FD15 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E501429D5DC4400B1FD15 /* LoginView.swift */; };
 		C03E501729D5DD5C00B1FD15 /* CreateProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E501629D5DD5C00B1FD15 /* CreateProject.swift */; };
 		C03E501929D5DDE500B1FD15 /* CreateTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E501829D5DDE500B1FD15 /* CreateTask.swift */; };
+		C08CE75529DC6CEC001A8EFD /* IslandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08CE75429DC6CEC001A8EFD /* IslandView.swift */; };
+		C08CE75729DC99EB001A8EFD /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08CE75629DC99EB001A8EFD /* ProjectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		C03E501429D5DC4400B1FD15 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C03E501629D5DD5C00B1FD15 /* CreateProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProject.swift; sourceTree = "<group>"; };
 		C03E501829D5DDE500B1FD15 /* CreateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTask.swift; sourceTree = "<group>"; };
+		C08CE75429DC6CEC001A8EFD /* IslandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandView.swift; sourceTree = "<group>"; };
+		C08CE75629DC99EB001A8EFD /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +62,9 @@
 				C03E500629D5D7B600B1FD15 /* FarmilleApp.swift */,
 				C03E501629D5DD5C00B1FD15 /* CreateProject.swift */,
 				C03E501829D5DDE500B1FD15 /* CreateTask.swift */,
+				C08CE75429DC6CEC001A8EFD /* IslandView.swift */,
 				C03E501429D5DC4400B1FD15 /* LoginView.swift */,
+				C08CE75629DC99EB001A8EFD /* ProjectView.swift */,
 				C03E500A29D5D7B700B1FD15 /* Assets.xcassets */,
 				C03E500C29D5D7B700B1FD15 /* Preview Content */,
 			);
@@ -143,10 +149,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C08CE75729DC99EB001A8EFD /* ProjectView.swift in Sources */,
 				C03E501529D5DC4400B1FD15 /* LoginView.swift in Sources */,
 				C03E501729D5DD5C00B1FD15 /* CreateProject.swift in Sources */,
 				C03E501929D5DDE500B1FD15 /* CreateTask.swift in Sources */,
 				C03E500729D5D7B600B1FD15 /* FarmilleApp.swift in Sources */,
+				C08CE75529DC6CEC001A8EFD /* IslandView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
