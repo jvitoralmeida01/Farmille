@@ -15,7 +15,7 @@ struct CreateTask: View {
 
     @State private var selectedButtonIndices = Set<Int>()
 
-    
+    @State private var number: Int = 1
 
     var body: some View {
 
@@ -127,7 +127,6 @@ struct CreateTask: View {
 
                             .cornerRadius(4)
 
-                            
 
                             Button("Inovação") {
 
@@ -158,20 +157,27 @@ struct CreateTask: View {
                         .padding()
 
                 HStack {
-
-                    Text("Tempo total:")
+                    Text("Tempo total: \(number) dias")
 
                         .bold()
-
+                        
                         .padding(.vertical)
 
                         .font(.system(size: 20))
-
+                    
+                    Picker("", selection: $number) {
+                        ForEach(1...100, id: \.self) {
+                            Text("\($0)")
+                        }
+                    }
+                    .multilineTextAlignment(.center)
+                    
+                    .padding(.leading, 130)
                 }
 
             }
 
-            .padding(.bottom, 40)
+            .padding(.bottom)
 
             .padding(.leading)
 

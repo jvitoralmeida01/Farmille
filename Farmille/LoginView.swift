@@ -19,7 +19,7 @@ struct CardView: View{
                 .bold()
                 .frame(alignment: .center)
                 .font(.system(size: 30))
-            Text("Gerencie sua equipe de uma forma rápida e intuitita. Crie tarefas e fique por dentro de todo o andamento do seu projeto.")
+            Text("Gerencie sua equipe de uma forma rápida e intuitiva. Crie tarefas e fique por dentro de todo o andamento do seu projeto.")
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
                 .padding(.vertical, 5)
