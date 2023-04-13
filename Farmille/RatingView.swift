@@ -1,10 +1,3 @@
-//
-//  RatingView.swift
-//  Farmille
-//
-//  Created by Thaís Vasconcelos Couto on 11/04/23.
-//
-
 import SwiftUI
 
 struct RatingView: View {
