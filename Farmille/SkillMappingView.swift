@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-struct SkillMappingView: View {
+struct ContentView: View {
     var body: some View {
-        
+    
         VStack {
             
-            Image("ProfilePic")
+            Image("adalberto")
             
                 .resizable()
-            
+
                 .aspectRatio(contentMode: .fit)
-            
+
                 .frame(width: 100, height: 100)
+            
             
             Text("Adalberto Ada")
             
@@ -39,45 +40,51 @@ struct SkillMappingView: View {
                     
                         .padding(.vertical)
                     
-                        .font(.system(size: 20))
+                        .font(.system(size: 25))
                     
-                    Image(systemName: "questionmark.circle")
+                    Spacer()
+                    
+                    Button(action: {
+                        // navegação pra tela skillmappingHelpView
+                        
+                    }, label: {
+                        Image(systemName: "questionmark.circle").font(.system(size: 25))
+                    })
+                    
                     
                 }
+                .padding(.horizontal)
                 
                 Text("Desenvolvimento:")
-                
-                    .font(.system(size: 16))
+                    .font(.system(size: 25))
+                    .padding()
                 
                 RatingView()
-                    .padding()
                 
                 Text("Design:")
-                
-                    .font(.system(size: 16))
+                    .font(.system(size: 25))
+                    .padding()
                 
                 RatingView()
-                    .padding()
                 
                 Text("Inovação:")
-                
-                    .font(.system(size: 16))
-                
-                RatingView()
+                    .font(.system(size: 25))
                     .padding()
                 
+                RatingView()
+                
             }
+            .padding(.bottom, 100)
             
-            .padding(.leading)
-            
-            .padding(.bottom, 150)
-            
-            
-            Button("Concluir cadastro", action: createProject)
+            Button("Concluir cadastro", action: {
+                
+            })
             
                 .buttonStyle(.borderedProminent)
             
-            Button("Agora não", action: back)
+            Button("Agora não", action: {
+                
+            })
             
         }
         
@@ -86,9 +93,8 @@ struct SkillMappingView: View {
 }
 
 
-struct SkillMappingView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SkillMappingView()
+        ContentView()
     }
 }
-
