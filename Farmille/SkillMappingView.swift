@@ -2,6 +2,8 @@
 //  SkillMappingView.swift
 //  Farmille
 //
+//  View principal do skillmapping
+//
 //  Created by Thaís Vasconcelos Couto on 04/04/23.
 //
 
