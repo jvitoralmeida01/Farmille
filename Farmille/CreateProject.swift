@@ -49,7 +49,7 @@ struct CreateProject: View {
 
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                Button("Add more +", action: addMembers)
+                Button("+", action: addMembers)
 
             }
 
@@ -95,11 +95,11 @@ struct CreateProject: View {
 
             .padding(.bottom, 150)
 
-            Button("Create project", action: createProject)
+            Button("Criar projeto", action: createProject)
 
             .buttonStyle(.borderedProminent)
 
-            Button("Not now", action: back)
+            Button("Agora não", action: back)
 
         }
 
