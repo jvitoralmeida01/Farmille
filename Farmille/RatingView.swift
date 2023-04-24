@@ -1,3 +1,6 @@
+// view para controlar a avaliação das estrelas
+// utilizada no SkillMapingView
+
 import SwiftUI
 
 struct RatingView: View {
