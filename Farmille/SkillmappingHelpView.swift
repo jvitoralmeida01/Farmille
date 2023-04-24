@@ -1,3 +1,5 @@
+// essa view é pra ser chamada quando o usuário clica no botão de interrogação na SkillMappingView
+
 import SwiftUI
 
 struct SkillmappingHelpView: View {
