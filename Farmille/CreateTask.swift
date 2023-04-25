@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct CreateTask: View {
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject private var database: Database
+    
+    var project: Project
 
     @State private var title: String = ""
 
@@ -15,7 +20,7 @@ struct CreateTask: View {
 
     @State private var selectedButtonIndices = Set<Int>()
 
-    @State private var number: Int = 1
+    @State private var estimate: Int = 1
 
     var body: some View {
 
@@ -76,88 +81,55 @@ struct CreateTask: View {
                     .font(.system(size: 20))
 
                 HStack(spacing: 20) {
+                    Spacer()
 
-                            Button("Desenvolvimento") {
-
-                                if selectedButtonIndices.contains(0) {
-
-                                    selectedButtonIndices.remove(0)
-
-                                } else {
-
-                                    selectedButtonIndices.insert(0)
-
-                                }
-
-                            }
-
-                            .padding(.vertical, 8)
-
-                            .padding(.horizontal, 16)
-
-                            .foregroundColor(selectedButtonIndices.contains(0) ? .white : .black)
-
-                            .background(selectedButtonIndices.contains(0) ? Color.blue : Color.gray)
-
-                            .cornerRadius(4)
+                    Button("Dev") {
+                        if selectedButtonIndices.contains(0) {
+                            selectedButtonIndices.remove(0)
+                        } else {
+                            selectedButtonIndices.insert(0)
+                        }
+                    }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .foregroundColor(selectedButtonIndices.contains(0) ? .white : .black)
+                        .background(selectedButtonIndices.contains(0) ? Color.blue : Color.gray)
+                        .cornerRadius(4)
 
                             
 
-                            Button("Design") {
-
-                                if selectedButtonIndices.contains(1) {
-
-                                    selectedButtonIndices.remove(1)
-
-                                } else {
-
-                                    selectedButtonIndices.insert(1)
-
-                                }
-
-                            }
-
-                            .padding(.vertical, 8)
-
-                            .padding(.horizontal, 16)
-
-                            .foregroundColor(selectedButtonIndices.contains(1) ? .white : .black)
-
-                            .background(selectedButtonIndices.contains(1) ? Color.blue : Color.gray)
-
-                            .cornerRadius(4)
-
-
-                            Button("Inovação") {
-
-                                if selectedButtonIndices.contains(2) {
-
-                                    selectedButtonIndices.remove(2)
-
-                                } else {
-
-                                    selectedButtonIndices.insert(2)
-
-                                }
-
-                            }
-
-                            .padding(.vertical, 8)
-
-                            .padding(.horizontal, 16)
-
-                            .foregroundColor(selectedButtonIndices.contains(2) ? .white : .black)
-
-                            .background(selectedButtonIndices.contains(2) ? Color.blue : Color.gray)
-
-                            .cornerRadius(4)
-
+                    Button("Design") {
+                        if selectedButtonIndices.contains(1) {
+                            selectedButtonIndices.remove(1)
+                        } else {
+                            selectedButtonIndices.insert(1)
                         }
+                    }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .foregroundColor(selectedButtonIndices.contains(1) ? .white : .black)
+                        .background(selectedButtonIndices.contains(1) ? Color.blue : Color.gray)
+                        .cornerRadius(4)
 
-                        .padding()
+
+                    Button("Inovação") {
+                        if selectedButtonIndices.contains(2) {
+                            selectedButtonIndices.remove(2)
+                        } else {
+                            selectedButtonIndices.insert(2)
+                        }
+                    }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .foregroundColor(selectedButtonIndices.contains(2) ? .white : .black)
+                        .background(selectedButtonIndices.contains(2) ? Color.blue : Color.gray)
+                        .cornerRadius(4)
+                    
+                    Spacer()
+                }
 
                 HStack {
-                    Text("Tempo total: \(number) dias")
+                    Text("Tempo total(dias): ")
 
                         .bold()
                         
@@ -165,14 +137,12 @@ struct CreateTask: View {
 
                         .font(.system(size: 20))
                     
-                    Picker("", selection: $number) {
+                    Picker("", selection: $estimate) {
                         ForEach(1...100, id: \.self) {
                             Text("\($0)")
                         }
                     }
                     .multilineTextAlignment(.center)
-                    
-                    .padding(.leading, 130)
                 }
 
             }
@@ -183,14 +153,22 @@ struct CreateTask: View {
 
             .padding(.trailing)
 
-            Button("Criar tarefa", action: createProject)
+            Button("Criar tarefa", action: createTask)
 
                 .buttonStyle(.borderedProminent)
-
-            Button("Agora não", action: back)
+            
+            // Não precisa desse botão pq quando vc roda a partir da root (loginview)
+            // E faz o fluxo do app, a navigationStack já cria um botão de voltar lá em cima
+            // Button("Agora não", action: createTask)
 
         }
 
+    }
+    
+    func createTask() {
+        let newTask = Task(id: 1, title: title, field: .design, description: description, estimate: estimate)
+        self.database.createTask(projectId: project.id, task: newTask)
+        presentationMode.wrappedValue.dismiss()
     }
 
 }
@@ -225,6 +203,6 @@ struct BorderButtonStyle: ButtonStyle {
 
 struct CreateTask_Previews: PreviewProvider {
     static var previews: some View {
-        CreateTask()
+        CreateTask(project: Project(id: 1, title: "Projeto 1", members: [], tasks: [])).environmentObject(Database(projects: []))
     }
 }
