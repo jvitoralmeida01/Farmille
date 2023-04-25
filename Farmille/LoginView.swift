@@ -34,28 +34,31 @@ struct LoginView: View {
     @State private var index = 0
     
     var body: some View {
-        VStack {
-            Image("LoginMemojis")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-            TabView(selection: $index) {
-                ForEach((0..<3), id: \.self) {index in
-                    CardView()
+        NavigationView {
+            VStack {
+                Image("LoginMemojis")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                TabView(selection: $index) {
+                    ForEach((0..<3), id: \.self) {index in
+                        CardView()
+                    }
                 }
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            .frame(height: 200)
-            Image("LoginButtonApple")
-                .frame(alignment: .center)
-            Image("LoginButtonGoogle")
-                .frame(alignment: .center)
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).edgesIgnoringSafeArea(.all)
-            .background(LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .top, endPoint: .bottom))
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                .frame(height: 200)
+                NavigationLink(destination: ProjectView()) {
+                    Image("LoginButtonApple")
+                        .frame(alignment: .center)
+                        .padding(.top, 80)
+                }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity).edgesIgnoringSafeArea(.all)
+                .background(LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .top, endPoint: .bottom))
+        }
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView().environmentObject(Database(projects: []))
     }
 }

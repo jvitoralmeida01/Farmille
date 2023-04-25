@@ -11,7 +11,7 @@ import SwiftUI
 struct FarmilleApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            LoginView().environmentObject(Database(projects: []))
         }
     }
 }
