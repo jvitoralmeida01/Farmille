@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct TaskDetailView: View {
-    var task: Task
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject private var database: Database
+    @ObservedObject var task: Task
+    @Binding var updateTrigger: Bool
     var body: some View {
         GeometryReader { bounds in
             HStack{
@@ -18,22 +21,120 @@ struct TaskDetailView: View {
                         .font(.system(size: 25))
                         .bold()
                         .padding(.bottom, 10)
-                    Image("Pig")
-                        .resizable()
-                        .frame(
-                            width: 150,
-                            height: 150
-                        )
+                    if (task.isAssigned) {
+                        Image("Pig")
+                            .resizable()
+                            .overlay(
+                                Image("ProfilePic")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .padding(.bottom, bounds.size.height - 630)
+                                    .padding(.leading, bounds.size.width - 270)
+                            )
+                            .frame(
+                                width: 150,
+                                height: 150
+                            )
+                    } else {
+                        Image("Pig")
+                            .resizable()
+                            .frame(
+                                width: 150,
+                                height: 150
+                            )
+                    }
+                    FieldPresenter(taskFields: task.fields)
+                        .padding(.top, 20)
+                    DificultyChip(difficultyLevel: difficultyEstimate)
+                        .padding(.top, 5)
+                    Text("Dificuldade: \(task.estimate)")
+                        .foregroundColor(.black.opacity(0.6))
+                    
                     Text(task.description)
-                        .font(.system(size: 15))
-                        .padding(.bottom, 10)
-                    Text("Tempo estimado (dias): \(task.estimate)")
+                        .font(.system(size: 20))
+                        .padding(.top, 10)
+                        .padding(.bottom, 20)
+                    
+                    if (!task.isAssigned) {
+                        Button("Atribuir-se na atividade", action: {
+                            assignTask()
+                        })
+                            .buttonStyle(.borderedProminent)
+                    } else {
+                        Button(action: {}, label: {
+                            Label("Atribuído", systemImage: "checkmark")
+                        })
+                            .buttonStyle(.borderedProminent)
+                            .disabled(true)
+                            .padding(.bottom, 10)
+
+                        // Só exibir botão de conclusão se atividade estiver assigned
+                        if (!task.isCompleted) {
+                            Button("Concluir atividade", action: {
+                                completeTask()
+                            })
+                                .buttonStyle(.borderedProminent)
+                                .tint(.green)
+                        } else {
+                            Button(action: {}, label: {
+                                Label("Concluída", systemImage: "checkmark")
+                            })
+                                .buttonStyle(.borderedProminent)
+                                .disabled(true)
+                        }
+                    }
                     Spacer()
                 }
                 .padding(.top, 40)
                 Spacer()
             }
         }
+    }
+    var difficultyEstimate: Int {
+        let userRatings = self.database.userRating
+        
+        var taskTotalRating = 0
+        var userTotalRating = 0
+        var fieldCount = 0
+        
+        if (task.fields.dev) {
+            fieldCount += 1
+            taskTotalRating += task.estimate
+            userTotalRating += userRatings.dev
+        }
+        if (task.fields.design) {
+            fieldCount += 1
+            taskTotalRating += task.estimate
+            userTotalRating += userRatings.design
+        }
+        if (task.fields.innovation) {
+            fieldCount += 1
+            taskTotalRating += task.estimate
+            userTotalRating += userRatings.innovation
+        }
+        
+        let dividend = 2.67 * Double(fieldCount)
+        let sumDiff = 4 * fieldCount
+        
+        taskTotalRating -= userTotalRating
+        taskTotalRating += sumDiff
+        
+        let estimateReturn = fieldCount == 0
+        ? 1
+        : Int(ceil(Double(taskTotalRating)/dividend))
+        
+        return estimateReturn
+    }
+
+    func completeTask() {
+        self.task.isCompleted = true
+        self.updateTrigger = !self.updateTrigger
+        presentationMode.wrappedValue.dismiss()
+    }
+    func assignTask() {
+        self.updateTrigger = !self.updateTrigger
+        self.task.isAssigned = true
+        
     }
 }
 
@@ -44,6 +145,7 @@ struct IslandView: View {
     @State var showDetail = false
     @State var showNewTask = false
     @State private var selectedTile = -1
+    @State var updateTrigger: Bool = false
     
     let height = UIScreen.main.bounds.height
     let width = UIScreen.main.bounds.width
@@ -69,24 +171,7 @@ struct IslandView: View {
                         .padding(.vertical, -(height/100))
                         .padding(.horizontal, -1)
                         .overlay(
-                            GeometryReader { bounds in
-                                VStack{
-                                    if (index < taskCount) {
-                                        Image("Pig")
-                                            .resizable()
-                                            .frame(
-                                                width: bounds.size.width * 0.7,
-                                                height: bounds.size.height * 0.7
-                                            )
-                                    } else if (index == (rows*cols)-1) {
-                                        NavigationLink(destination: CreateTask(project: project)) {
-                                            Image.init(systemName: "plus.circle.fill").font(.system(size: 60))
-                                                .padding(.horizontal, 10)
-                                        }
-                                    }
-                                }
-                                .padding()
-                            }
+                            taskOverlay(index: index)
                         )
                         .offset(y: (selectedTile == index ? -height/40 : 0))
                         .onTapGesture {
@@ -106,13 +191,58 @@ struct IslandView: View {
 
         .sheet(isPresented: $showDetail) {
             let selectedTask = tasks[selectedTile]
-            TaskDetailView(task: selectedTask)
+            TaskDetailView(task: selectedTask, updateTrigger: $updateTrigger)
                 .presentationDetents([.height(70), .large])
         }
     }
+    @ViewBuilder
+        private func taskOverlay(index: Int) -> some View {
+            GeometryReader { bounds in
+                VStack{
+                    if (index < taskCount) {
+                        if (tasks[index].isAssigned) {
+                            Image("Pig")
+                                .resizable()
+                                .overlay(
+                                    Image("ProfilePic")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .padding(.bottom, bounds.size.height - 50)
+                                        .padding(.leading, bounds.size.width - 50)
+                                )
+                                .frame(
+                                    width: bounds.size.width * 0.7,
+                                    height: bounds.size.height * 0.7
+                                )
+                        } else {
+                            Image("Pig")
+                                .resizable()
+                                .frame(
+                                    width: bounds.size.width * 0.7,
+                                    height: bounds.size.height * 0.7
+                                )
+                        }
+                        
+                        
+                    } else if (index == (rows*cols)-1) {
+                        NavigationLink(destination: CreateTask(project: project)) {
+                            Image.init(systemName: "plus.circle.fill").font(.system(size: 60))
+                                .padding(.horizontal, 10)
+                        }
+                    }
+                }
+                   .padding()
+            }
+        }
     
     var tasks: Array<Task> {
-        return project.tasks
+        if (updateTrigger) {
+            // Isso aqui é só uma forma de propagar a mudança entre nested ObservedObjects
+            // Um miguézinho
+            print("passing")
+        }
+        let sortedTasks = project.tasks.sorted{ !$0.isCompleted && $1.isCompleted }.sorted{ $0.isAssigned && !$1.isAssigned }
+        return sortedTasks
     }
     
     var taskCount: Int {
@@ -131,8 +261,21 @@ struct IslandView: View {
 
 struct IslandView_Previews: PreviewProvider {
     static var previews: some View {
-        IslandView(project: Project(id: 1, title: "Projeto 1", members: [], tasks: [
-            Task(id: 1, title: "test", field: .design, description: "desctest", estimate: 3)
-        ]))
+        let fields = Fields(dev: true, design: true)
+        let task = Task(title: "task1", fields: fields, description: "desctest", estimate: 3)
+        let task1 = Task(title: "task2", fields: fields, description: "desctest", estimate: 3)
+        let task2 = Task(title: "task3", fields: fields, description: "desctest", estimate: 3)
+        let task3 = Task(title: "task4", fields: fields, description: "desctest", estimate: 3)
+        
+        IslandView(project: Project(title: "Projeto 1", members: [], tasks: [
+            task,
+            task1,
+            task2,
+            task3
+        ])).environmentObject(Database(
+            projects: [],
+            userTasks: [],
+            userRating: Rating(dev: 3, design: 3, innovation: 1)
+        ))
     }
 }

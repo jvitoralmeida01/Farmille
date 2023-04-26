@@ -1,7 +1,9 @@
+// view para controlar a avaliação das estrelas
+// utilizada no SkillMapingView
 import SwiftUI
 
 struct RatingView: View {
-    @State var rating: Int = 1
+    @Binding var rating: Int
 
     var label = ""
 
@@ -12,7 +14,7 @@ struct RatingView: View {
 
     var offColor = Color.gray
     var onColor = Color.yellow
-    
+
     var body: some View {
         HStack {
             if label.isEmpty == false {
@@ -28,7 +30,7 @@ struct RatingView: View {
             }
         }
     }
-    
+
     func image(for number: Int) -> Image {
         if number > rating {
             return offImage ?? onImage
@@ -36,11 +38,12 @@ struct RatingView: View {
             return onImage
         }
     }
-    
+
 }
 
 struct RatingView_Previews: PreviewProvider {
     static var previews: some View {
-        RatingView()
+        @State var rating = 1
+        RatingView(rating: $rating)
     }
 }

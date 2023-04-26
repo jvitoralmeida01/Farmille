@@ -11,7 +11,13 @@ import SwiftUI
 struct FarmilleApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView().environmentObject(Database(projects: []))
+            LoginView().environmentObject(Database(
+                projects: [],
+                userTasks: [],
+                userRating: Rating(dev: 1, design: 1, innovation: 1)
+            ))
         }
     }
 }
+
+

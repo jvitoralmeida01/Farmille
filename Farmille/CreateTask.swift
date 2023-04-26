@@ -25,59 +25,37 @@ struct CreateTask: View {
     var body: some View {
 
         VStack {
-
             Text("Nova Tarefa")
-
                 .bold()
-
                 .padding()
-
                 .font(.system(size: 30))
 
             Image("Pig")
-
                 .resizable()
-
                 .aspectRatio(contentMode: .fit)
-
                 .frame(width: 100, height: 100)
 
             TextField("Insira o nome da tarefa", text: $title)
-
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-
                 .padding(.leading)
-
                 .padding(.trailing)
-
                 .padding(.vertical, 30)
 
             VStack (alignment: .leading) {
-
                 Text("Descrição:")
-
                     .bold()
-
                     .padding(.vertical)
-
                     .font(.system(size: 20))
 
                 TextEditor(text: $description)
-
                     //.textFieldStyle(RoundedBorderTextFieldStyle())
-
                     .frame(height: 100)
-
                     .background(Color.gray)
-
                     .cornerRadius(20)
 
                 Text("Áreas:")
-
                     .bold()
-
                     .padding(.vertical)
-
                     .font(.system(size: 20))
 
                 HStack(spacing: 20) {
@@ -129,7 +107,7 @@ struct CreateTask: View {
                 }
 
                 HStack {
-                    Text("Tempo total(dias): ")
+                    Text("Dificuldade: ")
 
                         .bold()
                         
@@ -138,7 +116,7 @@ struct CreateTask: View {
                         .font(.system(size: 20))
                     
                     Picker("", selection: $estimate) {
-                        ForEach(1...100, id: \.self) {
+                        ForEach(1...5, id: \.self) {
                             Text("\($0)")
                         }
                     }
@@ -148,25 +126,23 @@ struct CreateTask: View {
             }
 
             .padding(.bottom)
-
             .padding(.leading)
-
             .padding(.trailing)
 
             Button("Criar tarefa", action: createTask)
-
                 .buttonStyle(.borderedProminent)
-            
-            // Não precisa desse botão pq quando vc roda a partir da root (loginview)
-            // E faz o fluxo do app, a navigationStack já cria um botão de voltar lá em cima
-            // Button("Agora não", action: createTask)
-
         }
 
     }
     
     func createTask() {
-        let newTask = Task(id: 1, title: title, field: .design, description: description, estimate: estimate)
+        let isDev = selectedButtonIndices.contains(0)
+        let isDesign = selectedButtonIndices.contains(1)
+        let isInnovation = selectedButtonIndices.contains(2)
+        
+        let fields = Fields(dev: isDev, design: isDesign, innovation: isInnovation)
+
+        let newTask = Task(title: title, fields: fields, description: description, estimate: estimate)
         self.database.createTask(projectId: project.id, task: newTask)
         presentationMode.wrappedValue.dismiss()
     }
@@ -203,6 +179,10 @@ struct BorderButtonStyle: ButtonStyle {
 
 struct CreateTask_Previews: PreviewProvider {
     static var previews: some View {
-        CreateTask(project: Project(id: 1, title: "Projeto 1", members: [], tasks: [])).environmentObject(Database(projects: []))
+        CreateTask(project: Project(title: "Projeto 1", members: [], tasks: [])).environmentObject(Database(
+            projects: [],
+            userTasks: [],
+            userRating: Rating(dev: 1, design: 1, innovation: 1)
+        ))
     }
 }

@@ -10,6 +10,9 @@
 		1572AA9E29E843BA00F23A16 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1572AA9D29E843BA00F23A16 /* Constants.swift */; };
 		157EB68329F5C68E0081BA5C /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157EB68229F5C68E0081BA5C /* Database.swift */; };
 		157EB68529F5D41A0081BA5C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157EB68429F5D41A0081BA5C /* Components.swift */; };
+		15C32CC329F84BA2001D321A /* SkillMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C32CC229F84BA2001D321A /* SkillMappingView.swift */; };
+		15C32CC529F84BCA001D321A /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C32CC429F84BCA001D321A /* RatingView.swift */; };
+		15C32CC729F84C16001D321A /* SkillMappingHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C32CC629F84C16001D321A /* SkillMappingHelpView.swift */; };
 		C03E500729D5D7B600B1FD15 /* FarmilleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03E500629D5D7B600B1FD15 /* FarmilleApp.swift */; };
 		C03E500B29D5D7B700B1FD15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03E500A29D5D7B700B1FD15 /* Assets.xcassets */; };
 		C03E500E29D5D7B700B1FD15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03E500D29D5D7B700B1FD15 /* Preview Assets.xcassets */; };
@@ -24,6 +27,9 @@
 		1572AA9D29E843BA00F23A16 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		157EB68229F5C68E0081BA5C /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		157EB68429F5D41A0081BA5C /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		15C32CC229F84BA2001D321A /* SkillMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillMappingView.swift; sourceTree = "<group>"; };
+		15C32CC429F84BCA001D321A /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		15C32CC629F84C16001D321A /* SkillMappingHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillMappingHelpView.swift; sourceTree = "<group>"; };
 		C03E500329D5D7B600B1FD15 /* Farmille.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Farmille.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03E500629D5D7B600B1FD15 /* FarmilleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmilleApp.swift; sourceTree = "<group>"; };
 		C03E500A29D5D7B700B1FD15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,6 +78,9 @@
 				C08CE75429DC6CEC001A8EFD /* IslandView.swift */,
 				C03E501429D5DC4400B1FD15 /* LoginView.swift */,
 				C08CE75629DC99EB001A8EFD /* ProjectView.swift */,
+				15C32CC229F84BA2001D321A /* SkillMappingView.swift */,
+				15C32CC429F84BCA001D321A /* RatingView.swift */,
+				15C32CC629F84C16001D321A /* SkillMappingHelpView.swift */,
 				1572AA9D29E843BA00F23A16 /* Constants.swift */,
 				157EB68229F5C68E0081BA5C /* Database.swift */,
 				C03E500A29D5D7B700B1FD15 /* Assets.xcassets */,
@@ -158,12 +167,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15C32CC529F84BCA001D321A /* RatingView.swift in Sources */,
 				C08CE75729DC99EB001A8EFD /* ProjectView.swift in Sources */,
+				15C32CC329F84BA2001D321A /* SkillMappingView.swift in Sources */,
 				C03E501529D5DC4400B1FD15 /* LoginView.swift in Sources */,
 				C03E501729D5DD5C00B1FD15 /* CreateProject.swift in Sources */,
 				1572AA9E29E843BA00F23A16 /* Constants.swift in Sources */,
 				C03E501929D5DDE500B1FD15 /* CreateTask.swift in Sources */,
 				C03E500729D5D7B600B1FD15 /* FarmilleApp.swift in Sources */,
+				15C32CC729F84C16001D321A /* SkillMappingHelpView.swift in Sources */,
 				157EB68329F5C68E0081BA5C /* Database.swift in Sources */,
 				157EB68529F5D41A0081BA5C /* Components.swift in Sources */,
 				C08CE75529DC6CEC001A8EFD /* IslandView.swift in Sources */,

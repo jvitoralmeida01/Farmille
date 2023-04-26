@@ -32,6 +32,7 @@ struct CardView: View{
 struct LoginView: View {
     @State private var title: String = ""
     @State private var index = 0
+    @EnvironmentObject private var database: Database
     
     var body: some View {
         NavigationView {
@@ -46,19 +47,56 @@ struct LoginView: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 .frame(height: 200)
-                NavigationLink(destination: ProjectView()) {
+                NavigationLink(destination: SkillMappingView()) {
                     Image("LoginButtonApple")
                         .frame(alignment: .center)
                         .padding(.top, 80)
                 }
-            }.frame(maxWidth: .infinity, maxHeight: .infinity).edgesIgnoringSafeArea(.all)
+            }
+                .frame(maxWidth: .infinity, maxHeight: .infinity).edgesIgnoringSafeArea(.all)
                 .background(LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .top, endPoint: .bottom))
+                .onAppear() {
+                    initNotificationService()
+                }
+        }
+    }
+    
+    func initNotificationService() {
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+            print("firing timer")
+            let hardestTask = self.database.userTasks.sorted{ $0.estimate > $1.estimate }.first
+            let now = Date()
+            var prev = self.database.lastUpdate
+            prev = prev.addingTimeInterval(10)
+            if (now > prev) {
+                self.database.lastUpdate = now
+
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    print(success ? "Autorizado" : "Authorization failed")
+                    print(error?.localizedDescription ?? "")
+                }
+
+                let content = UNMutableNotificationContent()
+                content.title = "Fique de olho!"
+                content.subtitle = "Atividade \(hardestTask?.title ?? "") precisa de você"
+                content.body = "Entre agora!"
+                content.sound = UNNotificationSound.default
+
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1 , repeats: false)
+                let request = UNNotificationRequest(identifier: "notif.farmille", content: content, trigger: trigger)
+
+                UNUserNotificationCenter.current().add(request)
+            }
         }
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView().environmentObject(Database(projects: []))
+        LoginView().environmentObject(Database(
+            projects: [],
+            userTasks: [],
+            userRating: Rating(dev: 1, design: 1, innovation: 1)
+        ))
     }
 }

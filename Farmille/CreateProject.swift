@@ -78,7 +78,6 @@ struct CreateProject: View {
     
     func createProject() {
         let projectToCreate = Project(
-            id: 1,
             title: self.title,
             members: self.selectedMembers,
             tasks: []
@@ -182,6 +181,10 @@ struct ModalView: View {
 
 struct CreateProject_Previews: PreviewProvider {
     static var previews: some View {
-        CreateProject().environmentObject(Database(projects: []))
+        CreateProject().environmentObject(Database(
+            projects: [],
+            userTasks: [],
+            userRating: Rating(dev: 1, design: 1, innovation: 1)
+        ))
     }
 }

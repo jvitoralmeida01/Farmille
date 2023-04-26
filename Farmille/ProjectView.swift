@@ -59,8 +59,10 @@ struct ProjectView: View {
 
 struct ProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectView().environmentObject(Database(projects: [
-            Project(id: 1, title: "Projeto 1", members: [], tasks: [])
-        ]))
+        ProjectView().environmentObject(Database(
+            projects: [Project(title: "Projeto 1", members: [], tasks: [])],
+            userTasks: [Task(title: "task1", fields: Fields(), description: "desctest", estimate: 3)],
+            userRating: Rating(dev: 1, design: 1, innovation: 1)
+        ))
     }
 }
