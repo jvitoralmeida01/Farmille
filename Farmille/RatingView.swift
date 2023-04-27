@@ -40,10 +40,3 @@ struct RatingView: View {
     }
 
 }
-
-struct RatingView_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var rating = 1
-        RatingView(rating: $rating)
-    }
-}
