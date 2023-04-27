@@ -7,6 +7,33 @@
 
 import SwiftUI
 
+struct SeededRandomNumberGenerator {
+    private var seed: UInt64
+
+    init(seed: UInt64) {
+        self.seed = seed
+    }
+
+    private let a: UInt64 = 1664525
+    private let c: UInt64 = 1013904223
+    private let m: UInt64 = UInt64.max
+
+    mutating func next() -> UInt64 {
+        seed = (a * seed + c) % m
+        return seed
+    }
+
+    mutating func nextInt(upperBound: Int) -> Int {
+        return Int(next() % UInt64(upperBound))
+    }
+}
+
+func randomNumber(seed: Int, upperBound: Int) -> Int {
+    var generator = SeededRandomNumberGenerator(seed: UInt64(seed))
+    return generator.nextInt(upperBound: upperBound)
+}
+
+
 struct TaskDetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject private var database: Database
@@ -22,8 +49,7 @@ struct TaskDetailView: View {
                         .bold()
                         .padding(.bottom, 10)
                     if (task.isAssigned) {
-                        Image("Pig")
-                            .resizable()
+                        GIFWebView(gifName: "pigAnimated")
                             .overlay(
                                 Image("ProfilePic")
                                     .resizable()
@@ -36,12 +62,7 @@ struct TaskDetailView: View {
                                 height: 150
                             )
                     } else {
-                        Image("Pig")
-                            .resizable()
-                            .frame(
-                                width: 150,
-                                height: 150
-                            )
+                        GIFWebView(gifName: "pigAnimated")
                     }
                     FieldPresenter(taskFields: task.fields)
                         .padding(.top, 20)
@@ -139,6 +160,8 @@ struct TaskDetailView: View {
 }
 
 struct IslandView: View {
+    let pigImages = ["Pig1", "Pig2", "Pig3"]
+    
     @ObservedObject var project: Project
     let imageName: String = "IslandTile" // image name
     
@@ -171,7 +194,7 @@ struct IslandView: View {
                         .padding(.vertical, -(height/100))
                         .padding(.horizontal, -1)
                         .overlay(
-                            taskOverlay(index: index)
+                            taskOverlay(index: index, pigImage: pigImages[randomNumber(seed: index, upperBound: 3)])
                         )
                         .offset(y: (selectedTile == index ? -height/40 : 0))
                         .onTapGesture {
@@ -196,12 +219,12 @@ struct IslandView: View {
         }
     }
     @ViewBuilder
-        private func taskOverlay(index: Int) -> some View {
+    private func taskOverlay(index: Int, pigImage: String) -> some View {
             GeometryReader { bounds in
                 VStack{
                     if (index < taskCount) {
                         if (tasks[index].isAssigned) {
-                            Image("Pig")
+                            Image(pigImage)
                                 .resizable()
                                 .overlay(
                                     Image("ProfilePic")
@@ -215,7 +238,7 @@ struct IslandView: View {
                                     height: bounds.size.height * 0.7
                                 )
                         } else {
-                            Image("Pig")
+                            Image(pigImage)
                                 .resizable()
                                 .frame(
                                     width: bounds.size.width * 0.7,
